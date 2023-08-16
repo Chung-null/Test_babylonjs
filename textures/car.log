@@ -1,0 +1,106 @@
+Exporter version: 3.3.1, Blender version: 3.5.0
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\Users\user\Desktop\sample\textures\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently enabled collection
+	processing begun of mesh:  lift
+		processing begun of material:  default
+		processing begun of material:  Mat.1
+		processing begun of multimaterial:  car.Multimaterial#0
+		num positions      :  1162
+		num normals        :  1162
+		num tangents       :  0
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  532
+	processing begun of mesh:  body
+		processing begun of material:  Mat.1
+		processing begun of material:  default
+		processing begun of material:  Mat
+		processing begun of material:  Mat.2
+		registered as also a user of material:  Mat.1
+		registered as also a user of material:  default
+		processing begun of multimaterial:  car.Multimaterial#1
+		num positions      :  23947
+		num normals        :  23947
+		num tangents       :  0
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  9122
+	processing begun of mesh:  wheel2
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  wheel1
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  wheel3
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  wheel4
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  Cylinder
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  Cylinder.001
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+========= Writing of JSON file started =========
+	writing mesh:  lift
+	writing mesh:  body
+	writing mesh:  wheel2
+	writing mesh:  wheel1
+	writing mesh:  wheel3
+	writing mesh:  wheel4
+	writing mesh:  Cylinder
+	writing mesh:  Cylinder.001
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 0.9428 secs

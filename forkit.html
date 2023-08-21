@@ -104,7 +104,7 @@
                 if (isLifting) {
                     box.position.x -= speed;
                 }
-            } else if (keyCode === 68) {
+            } else if (keyCode === 68) {    
                 forklift.position.x += speed;
                 if (isLifting) {
                     box.position.x += speed;
@@ -136,15 +136,10 @@
                 }
             }
         });
-
-
-
         // Xử lý sự kiện thay đổi cửa sổ
         window.addEventListener("resize", function () {
             engine.resize();
         });
-
-
     </script>
 </body>
 

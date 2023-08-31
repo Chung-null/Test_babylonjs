@@ -91,6 +91,7 @@
         var box;
 
 
+
         var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, disableWebGL2Support: false }); };
 
         var createScene = async function () {
@@ -161,19 +162,20 @@
             };
 
             //Tạo một hoặc nhiều vật thể
-            for (i = 0; i < 1; i++) {
-                var width = 1;
-                var agentCube = BABYLON.MeshBuilder.CreateBox("cube", { size: width, height: width }, scene);
-                var matAgent = new BABYLON.StandardMaterial('mat2', scene);
-                var variation = Math.random();
-                matAgent.diffuseColor = new BABYLON.Color3(0.4 + variation * 0.6, 0.3, 1.0 - variation * 0.3);
-                agentCube.material = matAgent;
-                var randomPos = navigationPlugin.getRandomPointAround(new BABYLON.Vector3(-2.0, 0.1, -1.8), 5);
-                var transform = new BABYLON.TransformNode();
-                agentCube.parent = transform;
-                var agentIndex = crowd.addAgent(randomPos, agentParams, transform);
-                agents.push({ idx: agentIndex, trf: transform, mesh: agentCube })
-            }
+
+            var width = 0.5;
+            var agentCube = BABYLON.MeshBuilder.CreateBox("cube", { size: width, height: width }, scene);
+            var matAgent = new BABYLON.StandardMaterial('mat2', scene);
+            var variation = Math.random();
+            matAgent.diffuseColor = new BABYLON.Color3(0.4 + variation * 0.6, 0.3, 1.0 - variation * 0.3);
+            agentCube.material = matAgent;
+            var randomPos = navigationPlugin.getRandomPointAround(new BABYLON.Vector3(-2.0, 0.1, -1.8), 5);
+            var transform = new BABYLON.TransformNode();
+            agentCube.position.y = 0.25;
+            agentCube.parent = transform;
+            var agentIndex = crowd.addAgent(randomPos, agentParams, transform);
+            agents.push({ idx: agentIndex, trf: transform, mesh: agentCube })
+
 
             var startingPoint;
             var pathLine;
@@ -200,7 +202,6 @@
                     }
                     var pathPoints = navigationPlugin.computePath(crowd.getAgentPosition(agents[0]), navigationPlugin.getClosestPoint(startingPoint));
                     pathLine = BABYLON.MeshBuilder.CreateDashedLines("ribbon", { points: pathPoints, updatable: true, instance: pathLine }, scene);
-
                 }
             }
 
@@ -219,7 +220,6 @@
                     }
                 )
             );
-
 
             scene.onPointerObservable.add((pointerInfo) => {
                 switch (pointerInfo.type) {
@@ -242,8 +242,6 @@
                     case BABYLON.PointerEventTypes.POINTERUP:
                         camera.attachControl(canvas, true);
                         break;
-
-
                 }
             });
 
@@ -264,15 +262,15 @@
             return mesh;
         }
         async function updateStaticMesh(scene) {
-            // Ground for positional reference
+            // Ground f or positional reference
             const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 100, height: 100 });
-            ground.material = new BABYLON.GridMaterial("groundMat");
-            ground.material.backFaceCulling = false;
+
 
             var groundMaterial = new BABYLON.GridMaterial("groundMaterial", scene);
             groundMaterial.majorUnitFrequency = 5;
             groundMaterial.minorUnitVisibility = 0.45;
             groundMaterial.gridRatio = 1;
+            groundMaterial.backFaceCulling = false;
             groundMaterial.backFaceCulling = false;
             groundMaterial.mainColor = new BABYLON.Color3(1, 1, 1);
             groundMaterial.lineColor = new BABYLON.Color3(1.0, 1.0, 1.0);
@@ -282,13 +280,7 @@
             var mat1 = new BABYLON.StandardMaterial('mat1', scene);
             mat1.diffuseColor = new BABYLON.Color3(1, 1, 1);
 
-            // var sphere = BABYLON.MeshBuilder.CreateSphere("sphere1", { diameter: 2, segments: 16 }, scene);
-            // sphere.material = mat1;
-            // sphere.position.x = -3;
 
-            var cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 1, height: 3 }, scene);
-            cube.position = new BABYLON.Vector3(1, 1.5, -4);
-            //cube.material = mat2;
 
             const position3 = new BABYLON.Vector3(-4, 0, 5);
             const extent3 = new BABYLON.Vector3(2, 2, 2);
@@ -329,7 +321,7 @@
             }
 
             ground.material = matObstacle;
-            var arr2 = [ground, cube, box3, box4, box5];
+            var arr2 = [ground, box3, box4, box5];
             ground.material = groundMaterial;
             var mesh = BABYLON.Mesh.MergeMeshes(arr2.concat(arr));
 

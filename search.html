@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+
+    <!-- Babylon.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
+    <script src="https://cdn.babylonjs.com/recast.js"></script>
+    <script src="https://cdn.babylonjs.com/ammo.js"></script>
+    <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
+    <script src="https://cdn.babylonjs.com/cannon.js"></script>
+    <script src="https://cdn.babylonjs.com/Oimo.js"></script>
+    <script src="https://cdn.babylonjs.com/earcut.min.js"></script>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        #canvasZone {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Enter box name">
+        <button id="searchButton">Search</button>
+    </div>
+    <div id="canvasZone"><canvas id="renderCanvas"></canvas></div>
+    <script>
+
+        // Lấy tham chiếu đến canvas
+        var canvas = document.getElementById("renderCanvas");
+
+        // Tạo scene
+        var engine = new BABYLON.Engine(canvas, true);
+        var scene = new BABYLON.Scene(engine);
+
+        // Tạo camera
+        var camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+
+        // Tạo đèn
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+        var searchButton = document.createElement("button");
+        searchButton.textContent = "Search";
+        document.body.appendChild(searchButton);
+
+
+
+        // Tạo hộp để theo dõi
+        var box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, scene);
+        box.position = new BABYLON.Vector3(2, 0, 0); // Đặt vị trí ban đầu của hộp
+
+
+        // Lấy tham chiếu đến input và nút tìm kiếm
+        var searchInput = document.getElementById("searchInput");
+        var searchButton = document.getElementById("searchButton");
+
+
+        var targetRadius = 5; // Khoảng cách camera ban đầu
+
+        // Xử lý sự kiện click nút tìm kiếm
+        searchButton.addEventListener("click", function () {
+            var boxName = searchInput.value;
+            var targetBox = scene.getMeshByName(boxName);
+
+            if (targetBox) {
+                // Di chuyển camera để theo dõi box từ từ
+                var initialRadius = camera.radius;
+                var zoomStep = 0.9; // Bước zoom (có thể điều chỉnh)
+                var zoomInterval = setInterval(function () {
+                    if (camera.radius > targetRadius) {
+                        camera.radius -= zoomStep;
+                    } else {
+                        clearInterval(zoomInterval);
+                    }
+                }, 20  ); // Đợi 50ms giữa các bước zoom
+                camera.target = targetBox.position;
+            } else {
+                console.log("Box not found: " + boxName);
+            }
+        }); 
+        // Chuẩn bị vòng lặp render
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Xử lý sự kiện thay đổi cửa sổ
+        window.addEventListener("resize", function () {
+            engine.resize();
+        })
+
+
+    </script>
+</body>
+
+</html>
